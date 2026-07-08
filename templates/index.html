@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CineMind — AI Movie Assistant</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ============ HEADER ============ -->
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-icon">🎬</span>
+      <div class="brand-text">
+        <h1>CineMind</h1>
+        <span class="brand-sub">AI Movie Assistant</span>
+      </div>
+    </div>
+
+    <nav class="tabs" id="tabs">
+      <button class="tab-btn active" data-tab="chat">💬 Chat</button>
+      <button class="tab-btn" data-tab="search">🔍 Search</button>
+      <button class="tab-btn" data-tab="mood">🎭 Mood</button>
+      <button class="tab-btn" data-tab="compare">⚖️ Compare</button>
+    </nav>
+
+    <button id="theme-toggle" class="icon-btn" title="Toggle dark mode" aria-label="Toggle dark mode">
+      <span id="theme-icon">🌙</span>
+    </button>
+  </header>
+
+  <!-- ============ CHAT TAB ============ -->
+  <main class="tab-panel active" id="panel-chat">
+    <div class="chat-layout">
+      <div class="chat-window" id="chat-window">
+        <div class="chat-scroll" id="chat-scroll">
+          <div class="chat-empty" id="chat-empty">
+            <div class="chat-empty-icon">🍿</div>
+            <h2>Hi, I'm CineMind!</h2>
+            <p>Ask me for recommendations, describe a movie you love, or say how you're feeling tonight.</p>
+            <div class="suggestion-chips">
+              <button class="chip" data-prompt="Recommend a mind-bending sci-fi movie like Inception">Mind-bending sci-fi</button>
+              <button class="chip" data-prompt="I loved The Grand Budapest Hotel, what else would I like?">More like Grand Budapest Hotel</button>
+              <button class="chip" data-prompt="I want something funny and light for a Friday night">Funny & light tonight</button>
+              <button class="chip" data-prompt="Suggest a great 90s crime thriller">90s crime thriller</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form class="chat-input-bar" id="chat-form">
+        <input
+          type="text"
+          id="chat-input"
+          placeholder="Ask CineMind anything about movies…"
+          autocomplete="off"
+          maxlength="500"
+        >
+        <button type="submit" id="chat-send" class="primary-btn" aria-label="Send message">
+          <span class="send-icon">➤</span>
+        </button>
+      </form>
+      <div class="chat-footer-row">
+        <button id="clear-chat" class="link-btn">Clear conversation</button>
+        <span class="hint">Enter to send · Shift+Enter for a new line</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- ============ SEARCH TAB ============ -->
+  <main class="tab-panel" id="panel-search">
+    <div class="section-header">
+      <h2>Search Movies</h2>
+      <p>Find any movie and dive into AI-powered insights.</p>
+    </div>
+
+    <form class="search-bar" id="search-form">
+      <input type="text" id="search-input" placeholder="Search for a movie title…" autocomplete="off">
+      <button type="submit" class="primary-btn">Search</button>
+    </form>
+
+    <div id="search-status" class="status-text"></div>
+    <div class="movie-grid" id="search-results"></div>
+  </main>
+
+  <!-- ============ MOOD TAB ============ -->
+  <main class="tab-panel" id="panel-mood">
+    <div class="section-header">
+      <h2>Suggest Movies by Mood</h2>
+      <p>Tell CineMind how you're feeling, and get a curated pick with AI reasoning.</p>
+    </div>
+
+    <div class="mood-chips" id="mood-chips">
+      <button class="chip mood-chip" data-mood="happy">😄 Happy</button>
+      <button class="chip mood-chip" data-mood="sad">😢 Sad</button>
+      <button class="chip mood-chip" data-mood="excited">⚡ Excited</button>
+      <button class="chip mood-chip" data-mood="scared">👻 Scared</button>
+      <button class="chip mood-chip" data-mood="romantic">💕 Romantic</button>
+      <button class="chip mood-chip" data-mood="thoughtful">🧠 Thoughtful</button>
+      <button class="chip mood-chip" data-mood="relaxed">😌 Relaxed</button>
+      <button class="chip mood-chip" data-mood="adventurous">🗺️ Adventurous</button>
+    </div>
+
+    <form class="search-bar" id="mood-form">
+      <input type="text" id="mood-input" placeholder="Or describe your mood in your own words…" autocomplete="off">
+      <button type="submit" class="primary-btn">Get Picks</button>
+    </form>
+
+    <div id="mood-status" class="status-text"></div>
+    <div class="ai-explanation" id="mood-explanation"></div>
+    <div class="movie-grid" id="mood-results"></div>
+  </main>
+
+  <!-- ============ COMPARE TAB ============ -->
+  <main class="tab-panel" id="panel-compare">
+    <div class="section-header">
+      <h2>Compare Two Movies</h2>
+      <p>Can't decide what to watch? Let AI break down the differences.</p>
+    </div>
+
+    <div class="compare-grid">
+      <div class="compare-slot">
+        <label for="compare-search-1">Movie A</label>
+        <input type="text" id="compare-search-1" placeholder="Search movie A…" autocomplete="off">
+        <div class="autocomplete-list" id="compare-list-1"></div>
+        <div class="picked-movie" id="compare-picked-1"></div>
+      </div>
+      <div class="compare-vs">VS</div>
+      <div class="compare-slot">
+        <label for="compare-search-2">Movie B</label>
+        <input type="text" id="compare-search-2" placeholder="Search movie B…" autocomplete="off">
+        <div class="autocomplete-list" id="compare-list-2"></div>
+        <div class="picked-movie" id="compare-picked-2"></div>
+      </div>
+    </div>
+
+    <button id="compare-btn" class="primary-btn compare-submit" disabled>Compare Movies</button>
+    <div id="compare-status" class="status-text"></div>
+    <div class="ai-explanation" id="compare-result"></div>
+  </main>
+
+</div>
+
+<!-- ============ MOVIE DETAIL MODAL ============ -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
