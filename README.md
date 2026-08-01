@@ -69,27 +69,27 @@ After following this guide, your folder will look like this:
 ```
 movie-ai-assistant/
 │
-├── app.py                     # Main Flask application (routes / API endpoints)
-├── config.py                  # Loads and centralizes all environment variables
-├── requirements.txt           # Python dependencies
-├── .env.example                # Template for your secret API keys (safe to commit)
-├── .env                        # YOUR real API keys (you create this - NEVER commit it)
-├── .gitignore                  # Tells Git which files to ignore (like .env)
-├── README.md                   # This file
+├── app.py # Main Flask application (routes / API endpoints)
+├── config.py # Loads and centralizes all environment variables
+├── requirements.txt # Python dependencies
+├── .env.example # Template for your secret API keys (safe to commit)
+├── .env # YOUR real API keys (you create this - NEVER commit it)
+├── .gitignore # Tells Git which files to ignore (like .env)
+├── README.md # This file
 │
 ├── services/
 │   ├── __init__.py
-│   ├── tmdb_service.py         # All TMDb API calls live here
-│   └── ai_service.py           # All OpenAI / Claude API calls live here
+│   ├── tmdb_service.py # All TMDb API calls live here
+│   └── ai_service.py # All OpenAI / Claude API calls live here
 │
 ├── templates/
-│   └── index.html              # The single HTML page (Flask "template")
+│   └── index.html # The single HTML page (Flask "template")
 │
 └── static/
     ├── css/
-    │   └── style.css           # All styling, including dark mode
+    │   └── style.css # All styling, including dark mode
     └── js/
-        └── app.js               # All frontend logic (tabs, chat, fetch calls)
+        └── app.js # All frontend logic (tabs, chat, fetch calls)
 ```
 
 ---
@@ -210,8 +210,8 @@ cd movie-ai-assistant
 You can confirm you're in the right place by running:
 
 ```bash
-dir      # Windows (Command Prompt/PowerShell)
-ls       # macOS / Linux / Git Bash
+dir # Windows (Command Prompt/PowerShell)
+ls # macOS / Linux / Git Bash
 ```
 
 You should see `app.py`, `requirements.txt`, `templates/`, etc.
@@ -236,7 +236,7 @@ python3 -m venv venv
 
 This creates a new folder called `venv/` inside your project (it's already excluded from Git via `.gitignore`, so don't worry about it cluttering things up).
 
-> 🕒 This can take 10–30 seconds. If nothing appears to happen, that's normal - wait for the terminal prompt to return.
+> 🕒 This can take 10-30 seconds. If nothing appears to happen, that's normal - wait for the terminal prompt to return.
 
 ---
 
@@ -499,7 +499,7 @@ The instructions above run the app **locally** for development. To make it acces
 ### Option B - Deploy to a VPS (e.g. AWS EC2, DigitalOcean Droplet)
 
 1. SSH into your server and install Python 3.10+, `pip`, and `venv` (see [Step 1](#5-step-1--install-python)'s Linux instructions).
-2. Clone your repository and repeat Steps 5–9 of this guide on the server.
+2. Clone your repository and repeat Steps 5-9 of this guide on the server.
 3. Install a production WSGI server: `pip install gunicorn`.
 4. Run persistently with a process manager, e.g.:
    ```bash
