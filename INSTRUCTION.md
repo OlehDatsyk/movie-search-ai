@@ -329,7 +329,7 @@ This app needs **two kinds of keys**: one for movie data (TMDb - required), and 
 4. Click **Create** (or **Request an API Key**).
 5. Choose **Developer** (free, for personal/non-commercial projects like this one).
 6. Fill out the short form - application name can be `CineMind`, URL can be
-   `http://localhost:5000`, and description can say it's a personal learning project.
+   `http://localhost:5001`, and description can say it's a personal learning project.
 7. Once approved (usually instant), you'll see an **"API Key (v3 auth)"** - a string that
    looks like `8f3a1c2e9b7d4f6a1e2b3c4d5f6a7b8c`. Copy it.
 
@@ -366,7 +366,7 @@ ANTHROPIC_MODEL=claude-sonnet-5
 
 FLASK_SECRET_KEY=any_random_string_you_like
 FLASK_DEBUG=True
-PORT=5000
+PORT=5001
 ```
 
 - If you're using **Claude instead of OpenAI**, set `AI_PROVIDER=anthropic` and fill in
@@ -396,14 +396,14 @@ python app.py
  * Debug mode: on
 WARNING: This is a development server. Do not use it in a production deployment.
  * Running on all addresses (0.0.0.0)
- * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5001
 Press CTRL+C to quit
 ```
 
 ### Open the app in your browser
 
-- Hold `Ctrl` (or `Cmd` on Mac) and click the `http://127.0.0.1:5000` link in the terminal, or
-- Open your browser and go to **http://127.0.0.1:5000** manually.
+- Hold `Ctrl` (or `Cmd` on Mac) and click the `http://127.0.0.1:5001` link in the terminal, or
+- Open your browser and go to **http://127.0.0.1:5001** manually.
 
 You should see the CineMind interface. To stop the server, click into the terminal and press
 `Ctrl+C`.
@@ -414,7 +414,7 @@ You should see the CineMind interface. To stop the server, click into the termin
 
 Before diving into features, verify everything is wired up correctly:
 
-1. With the server running, open **http://127.0.0.1:5000/api/health** in your browser.
+1. With the server running, open **http://127.0.0.1:5001/api/health** in your browser.
 2. You should see something like:
    ```json
    {
@@ -427,7 +427,7 @@ Before diving into features, verify everything is wired up correctly:
 3. If either `tmdb_configured` or `ai_configured` shows `false`, go back to
    [Section 12](#12-getting-your-api-keys) and double-check your `.env` file - a value is
    likely missing, mistyped, or the file wasn't saved.
-4. Go back to the main app (`http://127.0.0.1:5000`) and try a simple search (e.g. "Inception")
+4. Go back to the main app (`http://127.0.0.1:5001`) and try a simple search (e.g. "Inception")
    in the **Search** tab. If a result appears with a poster, TMDb is working. If you send a
    chat message and get a reply, your AI provider is working too.
 
@@ -462,10 +462,10 @@ Before diving into features, verify everything is wired up correctly:
 | Page loads but search shows *"TMDb API key is missing"* | Your `.env` file is missing, misnamed, or `TMDB_API_KEY` is empty. Confirm the file is exactly named `.env` (not `.env.example` or `.env.txt`), and restart the server after editing. |
 | Chat/AI features say *"AI request failed"* | Check that `AI_PROVIDER` matches the key you filled in (`openai` needs `OPENAI_API_KEY`; `anthropic` needs `ANTHROPIC_API_KEY`), and that the key and billing are valid on the provider's site. |
 | `401 Unauthorized` from TMDb | Your TMDb key is wrong, not yet approved, or mistyped. Re-copy it from your TMDb account settings. |
-| `Address already in use` / port 5000 busy | Another program is using port 5000 (common on macOS due to AirPlay Receiver). Disable AirPlay Receiver, or change `PORT=5001` in `.env` and restart. |
+| `Address already in use` / port 5001 busy | Another program is using port 5001 (common on macOS due to AirPlay Receiver). Disable AirPlay Receiver, or change `PORT=5001` in `.env` and restart. |
 | Code changes don't show up in the browser | Make sure `FLASK_DEBUG=True` is set in `.env`, then hard-refresh your browser (`Ctrl+Shift+R` / `Cmd+Shift+R`). |
 | `(venv)` disappeared after closing VS Code | Virtual environments must be re-activated every new terminal session - re-run [Section 9](#9-activating-the-virtual-environment). |
-| Blank white page / 500 error | Check the terminal for a red Python error - it will point to the exact file and line. Also check `http://127.0.0.1:5000/api/health` to confirm your keys are detected. |
+| Blank white page / 500 error | Check the terminal for a red Python error - it will point to the exact file and line. Also check `http://127.0.0.1:5001/api/health` to confirm your keys are detected. |
 | Nothing happens when clicking movie cards | Open your browser's Developer Tools (`F12`) -> Console tab and look for red error messages. |
 
 ---

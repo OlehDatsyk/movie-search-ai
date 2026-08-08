@@ -40,7 +40,7 @@ A locally-run web application with:
 - A connection to **TMDb** (The Movie Database) for real movie data - posters, ratings, cast, genres.
 - A connection to an **AI model** (OpenAI's GPT models or Anthropic's Claude) that powers the conversational assistant, recommendations, and explanations. The AI is given real "tools" it can call to search TMDb itself, so it never has to guess or make up movie facts.
 
-When finished, you'll run **one command** in VS Code's terminal, and a website will be available at `http://127.0.0.1:5000`.
+When finished, you'll run **one command** in VS Code's terminal, and a website will be available at `http://127.0.0.1:5001`.
 
 ---
 
@@ -322,7 +322,7 @@ CineMind needs **two** kinds of API keys: one for movie data (TMDb) and one for 
 3. In the left menu, click **API**.
 4. Click **Create** (or **Request an API Key**) under "Request an API Key".
 5. Choose **Developer** (free, for non-commercial personal projects like this one).
-6. Fill out the short form (application name can be "CineMind", URL can be `http://localhost:5000`, and describe it as a personal learning project).
+6. Fill out the short form (application name can be "CineMind", URL can be `http://localhost:5001`, and describe it as a personal learning project).
 7. Once approved (usually instant), you'll see an **"API Key (v3 auth)"** - a string like `8f3a1c2e9b7d4f6a1e2b3c4d5f6a7b8c`. Copy it.
 
 ### 12.2 AI API Key - choose ONE provider
@@ -377,7 +377,7 @@ The `.env` file stores your secret keys **locally** - it is never uploaded to Gi
 
    FLASK_SECRET_KEY=any_random_string_you_like
    FLASK_DEBUG=True
-   PORT=5000
+   PORT=5001
    ```
 
    - If you're using **Claude instead of OpenAI**, set `AI_PROVIDER=anthropic` and fill in `ANTHROPIC_API_KEY` instead - you can leave `OPENAI_API_KEY` blank.
@@ -405,8 +405,8 @@ python app.py
  * Debug mode: on
 WARNING: This is a development server. Do not use it in a production deployment.
  * Running on all addresses (0.0.0.0)
- * Running on http://127.0.0.1:5000
- * Running on http://192.168.1.23:5000
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.23:5001
 Press CTRL+C to quit
  * Restarting with stat
  * Debugger is active!
@@ -415,8 +415,8 @@ Press CTRL+C to quit
 
 ### Open the app
 
-1. Hold `Ctrl` (or `Cmd` on Mac) and click the `http://127.0.0.1:5000` link in the terminal, **or**
-2. Open your browser manually and go to: **http://127.0.0.1:5000**
+1. Hold `Ctrl` (or `Cmd` on Mac) and click the `http://127.0.0.1:5001` link in the terminal, **or**
+2. Open your browser manually and go to: **http://127.0.0.1:5001**
 
 You should see the CineMind interface with the Chat tab active.
 
@@ -447,14 +447,14 @@ To stop the server at any time, click into the terminal and press `Ctrl+C`.
 | Page loads but search/chat shows *"TMDb API key is missing"* | Your `.env` file is missing, misnamed, or `TMDB_API_KEY` wasn't filled in. Confirm the file is named exactly `.env` (not `.env.example` or `.env.txt`) and restart the server after editing it. |
 | Chat/AI features return *"AI request failed"* | Check that `AI_PROVIDER` matches the key you filled in (`openai` needs `OPENAI_API_KEY`; `anthropic` needs `ANTHROPIC_API_KEY`), and that the key is correct and has billing enabled on the provider's site. |
 | `401 Unauthorized` from TMDb | Your TMDb key is wrong or not yet approved. Re-copy it from your TMDb account settings. |
-| `Address already in use` / port 5000 busy | Another program is using port 5000 (common on macOS due to AirPlay Receiver). Either disable AirPlay Receiver (System Settings -> General -> AirDrop & Handoff) or change `PORT=5001` in `.env` and restart. |
+| `Address already in use` / port 5001 busy | Another program is using port 5001 (common on macOS due to AirPlay Receiver). Either disable AirPlay Receiver (System Settings -> General -> AirDrop & Handoff) or change `PORT=5001` in `.env` and restart. |
 | Changes to code don't show up in the browser | Make sure `FLASK_DEBUG=True` is set in `.env` (enables auto-reload), then hard-refresh your browser (`Ctrl+Shift+R` / `Cmd+Shift+R`). |
 | Terminal shows `(venv)` disappeared after closing VS Code | Virtual environments must be re-activated every new terminal session. Just re-run the activation command from Step 6. |
 | `ImportError` mentioning `openai` or `anthropic` version mismatch | Run `pip install --upgrade -r requirements.txt` inside the activated virtual environment. |
-| Blank white page / 500 error | Check the VS Code terminal for a red Python traceback - it will point to the exact file and line. Also try visiting `http://127.0.0.1:5000/api/health` to confirm your keys are detected (`tmdb_configured` and `ai_configured` should both say `true`). |
+| Blank white page / 500 error | Check the VS Code terminal for a red Python traceback - it will point to the exact file and line. Also try visiting `http://127.0.0.1:5001/api/health` to confirm your keys are detected (`tmdb_configured` and `ai_configured` should both say `true`). |
 | Nothing happens when clicking movie cards | Open your browser's Developer Tools (`F12`) -> Console tab, and check for red errors; this usually points to a JavaScript issue worth reporting. |
 
-Still stuck? Visit `http://127.0.0.1:5000/api/health` in your browser while the server is running - it returns a small JSON status report telling you exactly which configuration is missing:
+Still stuck? Visit `http://127.0.0.1:5001/api/health` in your browser while the server is running - it returns a small JSON status report telling you exactly which configuration is missing:
 
 ```json
 {

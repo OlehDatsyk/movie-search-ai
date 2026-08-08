@@ -19,7 +19,7 @@ class Config:
     # ---------- Flask ----------
     SECRET_KEY = os.getenv("FLASK_SECRET_KEY", "dev-secret-key-change-me")
     DEBUG = os.getenv("FLASK_DEBUG", "True").lower() in ("1", "true", "yes")
-    PORT = int(os.getenv("PORT", "5000"))
+    PORT = int(os.getenv("PORT", "5001"))
 
     # ---------- TMDb ----------
     TMDB_API_KEY = os.getenv("TMDB_API_KEY", "")
